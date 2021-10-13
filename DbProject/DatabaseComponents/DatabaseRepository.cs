@@ -29,12 +29,13 @@ namespace DbProject.DatabaseComponents
 
         public async Task<T> GetElement(int id)
         {
-            if (await table.AnyAsync())
+            var element = await table.FirstOrDefaultAsync(e => e.Id == id);
+            if (element != null)
             {
-                return await table.FirstOrDefaultAsync(e => e.Id == id);
+                return element;
             }
             else
-                throw new Exception("An element with this id dosen't exist in database");
+                throw new ArgumentException("An element with this id dosen't exist in database");
         }
 
         public async Task PostElement(T element)
