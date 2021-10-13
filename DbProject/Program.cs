@@ -1,12 +1,14 @@
 ﻿using DbProject.DatabaseComponents;
+using DbProject.DatabaseComponents.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DbProject
 {
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
             string command = "";
 
@@ -16,6 +18,8 @@ namespace DbProject
                 Console.WriteLine("-- Simple Database --\n");
 
                 using var database = new ApplicationDbContext();
+                var repository = new DatabaseRepository<SimpleContent>(database);
+
                 int elementsCount = 0;
 
                 if (database.TableOne.Any())
@@ -40,8 +44,7 @@ namespace DbProject
                     Console.WriteLine("Content of the new element : ");
                     SimpleContent newElement = new();
                     newElement.Content = Console.ReadLine();
-                    database.TableOne.Add(newElement);
-                    database.SaveChanges();
+                    await repository.PostElement(newElement);
                 }
             }
 

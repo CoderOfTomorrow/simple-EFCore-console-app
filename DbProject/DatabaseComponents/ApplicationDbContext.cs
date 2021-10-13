@@ -1,7 +1,7 @@
-﻿using DbProject.DatabaseComponents;
+﻿using DbProject.DatabaseComponents.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbProject
+namespace DbProject.DatabaseComponents
 {
     public class ApplicationDbContext : DbContext
     {
